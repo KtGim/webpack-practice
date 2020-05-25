@@ -1,0 +1,37 @@
+{
+  "name": "webpack-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --mode development",
+    "prod": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KingsIT/webpack-practice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KingsIT/webpack-practice/issues"
+  },
+  "homepage": "https://github.com/KingsIT/webpack-practice#readme",
+  "dependencies": {
+    "lodash-es": "^4.17.15",
+    "purify-css": "^1.2.5",
+    "purifycss-webpack": "^0.7.0",
+    "webpack": "^4.43.0"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.5.3",
+    "html-webpack-plugin": "^4.3.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "style-loader": "^1.2.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-deep-scope-plugin": "^1.6.2"
+  }
+}
