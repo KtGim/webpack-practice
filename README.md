@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-05-10 23:32:06
- * @LastEditTime: 2020-05-25 22:48:41
+ * @LastEditTime: 2020-05-28 21:54:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \webpack-practice\README.md
@@ -36,8 +36,9 @@
     }]
 
 ```
-#### css tree-shaking
+#### css tree-shaking (单页应用)
 - 依赖文件 npm i purify-css purifycss-webpack
+    - 会将所有css打包到同一个文件夹下面，同时html中没有的css 样式不会被打包出来
 ```
 new PuricssPlugin({
     // 指定css-shaking 文件地址
@@ -57,4 +58,36 @@ new MiniCssExtraPlugin({
     // chunkFilename： "[id].css",
 }),
 ```
+#### webpack dev serve -> hot reload
+- 自动更新服务 刷新页面，单页开发时提高效率
+- dev-server  配置
+- 为了防止对线上环境产生干扰，需要单独配置开发环境配置
+- dist 中会生成魔法字符串对应的名称的js代码
+```
+    devServer: {
+        port: 3000,
+        hot: true,
+        before(app) {  
+            // 此处可以结合 mockjs 实现接口代理
+            app.get('api/list', (req, res) => {
+                res.json({
+                    data: [1,2,3],
+                    massage: "请求成功"
+                })
+            })
+        }
+    },
+```
+#### magic comments 魔法注释 用于做异步包的导入
+- 魔法注释可以配置 输出的chunk的 名字
+- 可以配置 prefetch preload 字段
+- 这个包会被动态加载到页面中，并且会执行代码的结果
 
+```
+import(/*webpackChunkName: "Async Test"*/'./components/async').then(_ => {
+    _.default.init();
+})
+```
+
+#### 单页应用的常用包 ： runtime.js,main.js,common.js, asyncTest.js(异步代码文件) 单页应用的核心文件
+- [单页配置 optimization](https://www.jianshu.com/p/a12928c18507)

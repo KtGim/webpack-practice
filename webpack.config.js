@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-05-10 23:49:19
- * @LastEditTime: 2020-05-25 23:55:18
+ * @LastEditTime: 2020-05-28 21:53:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \webpack-practice\webpack.config.js
@@ -43,8 +43,36 @@ module.exports = {
             }
         ]
     },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    chunks: "initial",
+                    name: "common",
+                    minChunks: 1, // 表示被引用次数，默认为1
+                    maxInitialRequests: 5, // 打出来的chunks的最大请求不能超过5
+                    minSize:  0,
+                }
+            }
+        },
+        runtimeChunk: { // 运行时
+            name: 'runtime'
+        }
+    },
+    devServer: {
+        port: 3000,
+        hot: true,
+        before(app) {
+            app.get('/api/list', (req, res) => {
+                res.json({
+                    data: [1,2,3],
+                    massage: "请求成功"
+                })
+            })
+        }
+    },
     plugins: [
-        // new webpackDeepScopeAnalysisPlugin(),
+        // new webpackDeepScopeAnalysisPlugin(),  // js tree shaking
         
         new CleanWebpackPlugin(),
         new MiniCssExtraPlugin({
@@ -55,8 +83,8 @@ module.exports = {
             filename: "index.html",
             template: "src/index.html"
         }),
-        new PuricssPlugin({
-            paths: glob.sync(path.join(__dirname, './dist/*.html'))
-        })
+        // new PuricssPlugin({
+        //     paths: glob.sync(path.join(__dirname, './dist/*.html'))
+        // }) // 文件不存在 会导致错误
     ]
 }

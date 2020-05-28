@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development",
-    "prod": "webpack --mode production"
+    "prod": "webpack --mode production",
+    "server": "webpack-dev-server --mode development"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "mini-css-extract-plugin": "^0.9.0",
     "style-loader": "^1.2.1",
     "webpack-cli": "^3.3.11",
-    "webpack-deep-scope-plugin": "^1.6.2"
+    "webpack-deep-scope-plugin": "^1.6.2",
+    "webpack-dev-server": "^3.11.0"
   }
 }
