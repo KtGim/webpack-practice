@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-05-10 23:32:06
- * @LastEditTime: 2020-05-28 21:54:13
+ * @LastEditTime: 2020-05-31 22:56:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \webpack-practice\README.md
@@ -91,3 +91,18 @@ import(/*webpackChunkName: "Async Test"*/'./components/async').then(_ => {
 
 #### 单页应用的常用包 ： runtime.js,main.js,common.js, asyncTest.js(异步代码文件) 单页应用的核心文件
 - [单页配置 optimization](https://www.jianshu.com/p/a12928c18507)
+
+## 上线优化配置
+- 开启多核压缩 uglifyjs-webpack-pulugin 默认开启当前核数 - 1
+- 查看影响打包的因素，进行监控。 可以将每个chunk的打包时间给反印出来（开发环境配置）speed-measure-webpack-plugin
+- 同知面板 提示是否打包成功  webpack-build-notifier， 会弹出错误信息和成功时的反馈
+- 开启打包进度 progress-bar-webpack-plugin 打包进度条
+- webpack-dashboard 信息面板， webpack1时已有
+    ```
+        "scripts": {
+            ...
+            "dev": "webpack-dashboard -- webpack --mode development",
+            ...
+        },
+    ```
+- 窗口标题 node-bash-title

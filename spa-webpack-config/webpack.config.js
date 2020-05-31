@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-05-10 23:49:19
- * @LastEditTime: 2020-05-28 21:53:08
+ * @LastEditTime: 2020-05-31 22:54:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \webpack-practice\webpack.config.js
@@ -15,9 +15,16 @@ const htmlWebpackPlugin  = require("html-webpack-plugin");
 const argv = require("yargs-parser")(process.argv.slice(2))
 const glob = require('glob');
 const path = require('path');
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const WebpackBuildNotifier = require("webpack-build-notifier");
+const ProgressPlugin = require("progress-bar-webpack-plugin");
+const DashboardPlugin = require("webpack-dashboard/plugin")
+const setTitle = require("node-bash-title");
+setTitle(" opopop ")
+const smp = new SpeedMeasurePlugin();
 
 const modeflag = argv.mode === "production";
-module.exports = {
+const config = {
     module: {
         rules: [
             {
@@ -73,7 +80,13 @@ module.exports = {
     },
     plugins: [
         // new webpackDeepScopeAnalysisPlugin(),  // js tree shaking
-        
+        new DashboardPlugin(), // webpack-dashboard package.json 命令更改
+        new ProgressPlugin(),
+        new WebpackBuildNotifier({
+            title: 'my pro',
+            // logo: "path.resolve()"
+            suppressSuccess: true,
+        }),
         new CleanWebpackPlugin(),
         new MiniCssExtraPlugin({
             filename: modeflag ? "styles/[name].[hash:5].css" : "styles/[name].css",
@@ -88,3 +101,5 @@ module.exports = {
         // }) // 文件不存在 会导致错误
     ]
 }
+
+module.exports = smp.wrap(config)
