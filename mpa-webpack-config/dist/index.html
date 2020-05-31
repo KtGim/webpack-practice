@@ -1,0 +1,25 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-05-28 22:54:50
+ * @LastEditTime: 2020-05-31 18:18:47
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \webpack-practice\mpa-webpack-config\project\src\views\index.html
+-->
+{% extends './layout.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="./index.less" />
+{% endblock %}
+
+{% block content %}
+    <h1>{{message}}</h1>
+    {% include "../../components/banner/banner.html" %}
+{% endblock %}
+
+{% block scripts %}
+   <script>
+       console.log('init');
+   </script>
+   <script src=index-index.js></script>
+{% endblock %}
