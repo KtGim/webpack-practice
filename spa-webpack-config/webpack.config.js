@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-05-10 23:49:19
- * @LastEditTime: 2020-05-31 22:54:42
+ * @LastEditTime: 2020-06-01 11:09:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \webpack-practice\webpack.config.js
@@ -18,9 +18,15 @@ const path = require('path');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const WebpackBuildNotifier = require("webpack-build-notifier");
 const ProgressPlugin = require("progress-bar-webpack-plugin");
-const DashboardPlugin = require("webpack-dashboard/plugin")
+const DashboardPlugin = require("webpack-dashboard/plugin");
+const ManifestPlugin = require("webpack-manifest-plugin");
+const ParallelUglifyPlugin = require("webpack-parallel-uglify-plugin");
+
 const setTitle = require("node-bash-title");
 setTitle(" opopop ")
+const loading = {
+    html: '加载中'
+}
 const smp = new SpeedMeasurePlugin();
 
 const modeflag = argv.mode === "production";
@@ -80,6 +86,23 @@ const config = {
     },
     plugins: [
         // new webpackDeepScopeAnalysisPlugin(),  // js tree shaking
+        new ParallelUglifyPlugin({
+            uglifyES: {
+                // exclude， include 配置比较重要，可以加快构建速度
+                // exclude:{},
+                // include: "",
+                output: {
+                    beautify: false, // es 美化
+                    comments: false, // 注释
+                },
+                compress: {
+                    warnings: false, // 不输出警告
+                    drop_console: false,
+                    collapse_vars: true,
+                }
+            }
+        }),
+        new ManifestPlugin(),
         new DashboardPlugin(), // webpack-dashboard package.json 命令更改
         new ProgressPlugin(),
         new WebpackBuildNotifier({
@@ -94,7 +117,8 @@ const config = {
         }),
         new htmlWebpackPlugin({
             filename: "index.html",
-            template: "src/index.html"
+            template: "src/index.html",
+            loading
         }),
         // new PuricssPlugin({
         //     paths: glob.sync(path.join(__dirname, './dist/*.html'))
@@ -102,4 +126,6 @@ const config = {
     ]
 }
 
-module.exports = smp.wrap(config)
+module.exports = smp.wrap(config)  // npm run chart  和这个包冲突
+
+// module.exports = config;

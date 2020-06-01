@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-05-10 23:32:06
- * @LastEditTime: 2020-05-31 22:56:20
+ * @LastEditTime: 2020-06-01 11:03:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \webpack-practice\README.md
@@ -92,8 +92,8 @@ import(/*webpackChunkName: "Async Test"*/'./components/async').then(_ => {
 #### 单页应用的常用包 ： runtime.js,main.js,common.js, asyncTest.js(异步代码文件) 单页应用的核心文件
 - [单页配置 optimization](https://www.jianshu.com/p/a12928c18507)
 
-## 上线优化配置
-- 开启多核压缩 uglifyjs-webpack-pulugin 默认开启当前核数 - 1
+## 上线（窗口）优化配置
+- 开启多核压缩 uglifyjs-webpack-plugin 默认开启当前核数 - 1
 - 查看影响打包的因素，进行监控。 可以将每个chunk的打包时间给反印出来（开发环境配置）speed-measure-webpack-plugin
 - 同知面板 提示是否打包成功  webpack-build-notifier， 会弹出错误信息和成功时的反馈
 - 开启打包进度 progress-bar-webpack-plugin 打包进度条
@@ -106,3 +106,14 @@ import(/*webpackChunkName: "Async Test"*/'./components/async').then(_ => {
         },
     ```
 - 窗口标题 node-bash-title
+
+=========================== 以上是窗口优化
+
+## 上线
+- polyfill.min.js (v2版本) （https://cdn.polyfill.io/v2/polyfill.min.js）根据参数来读取 polyfill.js 部分功能
+- 前端缓存小负载
+    - 通过node(webpack 计算出有变化的文件)，然后再根据负载内容更新结果
+        - webpack-manifest-plugin 会生成 打包文件的文件名和打包的地址生成映射保存再 manifest.json 文件中。
+        - 如果是服务器端构造的html，就可以根据当前的manifest.  json，引入css和js文件，而且这个文件是必须的，否则服务器端压根不知道hash之后的JS文件名字和CSS名字。
+        - 
+- html-webpack-plugin 设置options来去除 loading 的效果
