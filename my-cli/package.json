@@ -1,0 +1,26 @@
+{
+  "name": "my-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "my-cli": "bin/cli-demo.js",
+    "my-cli-add": "bin/cli-demo-add.js",
+    "my-cli-delete": "bin/cli-demo-delete.js",
+    "my-cli-init": "bin/cli-demo-init.js",
+    "my-cli-list": "bin/cli-demo-list.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "commander": "^5.0.0",
+    "download-git-repo": "^3.0.2",
+    "inquirer": "^7.1.0",
+    "ora": "^4.0.3"
+  }
+}
