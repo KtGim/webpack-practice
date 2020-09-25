@@ -1,3 +1,4 @@
 #!/usr/bin/env node
 
-console.log('aaa');
+const initCLi = require('../lib/index');
+initCLi();
