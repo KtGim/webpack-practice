@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/KingsIT/webpack-practice#readme",
   "dependencies": {
-    "lodash-es": "^4.17.15",
+    "lodash-es": "^4.17.21",
     "purify-css": "^1.2.5",
     "purifycss-webpack": "^0.7.0",
     "webpack": "^4.43.0"
